@@ -19,8 +19,8 @@ namespace TestCalc
 
         public void MockRequest_Test(int a, int b, string op, int exp)
         {
-            ILib Client = new Lib();
-            int res = Client.RequestCalcResult(a, b, op);
+            ILib lib = new Lib();
+            int res = lib.RequestCalcResult(a, b, op);
             Assert.AreEqual(exp, res);
         }
 
@@ -35,6 +35,19 @@ namespace TestCalc
             ClientMock Client = new ClientMock(a, b, op);
             int res = Client.CalcResult(a, b, op);
             Assert.AreEqual(exp, res);
+        }
+
+        [DataTestMethod]
+        [DataRow(1, 2, "p")]
+        [DataRow(1, 2, "*")]
+        [DataRow(1, 2, "-")]
+        [DataRow(2, 2, "/")]
+
+        public void MockServer_Test(int a, int b, string op)
+        {
+            ILib lib = new Lib();
+            int res = lib.RequestCalcResult(a, b, op);
+            Assert.AreEqual(10, res);
         }
     }
 }
